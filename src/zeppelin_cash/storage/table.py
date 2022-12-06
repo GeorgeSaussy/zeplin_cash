@@ -193,8 +193,8 @@ class TableReader:
         # TODO(OMEGA-411): This should catch the exceptions raised in file IO
         # fails.
         table = Table(self.__schema)
-        with open(self.__file_name, newline="\n") as csvfile:
-            reader = csv_reader(csvfile, delimiter=",", quotechar="\"")
+        with open(self.__file_name, newline="\n") as csv_file:
+            reader = csv_reader(csv_file, delimiter=",", quotechar="\"")
             on_first_row = False
             column_types = self.__schema.column_types()
             for row in reader:
@@ -226,7 +226,7 @@ class TableReader:
             return Result(ok=table)
 
 
-class TableWritter:
+class TableWriter:
     """Note: This implementation is not thread safe."""
 
     def __init__(self, file_name: str, schema: TableSchema,

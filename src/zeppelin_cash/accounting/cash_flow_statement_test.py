@@ -1,5 +1,5 @@
 """The module wallet.accounting.test_cash_flow_statement test the
-CashFlowStatement implmentation."""
+CashFlowStatement implementation."""
 from datetime import datetime
 
 from zeppelin_cash.accounting.cash_flow_statement import CashFlowStatement

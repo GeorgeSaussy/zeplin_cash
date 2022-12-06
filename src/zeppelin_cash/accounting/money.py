@@ -69,7 +69,7 @@ class Money:
         return Money(self.quantity() - other.quantity(), self.currency())
 
     def __eq__(self, other: object) -> bool:
-        """Check if the object is equvalent to another.
+        """Check if the object is equivalent to another.
 
         Args:
             other: the other object
@@ -88,11 +88,11 @@ class Money:
         Returns:
             The Currency instance as a string.
         """
-        squant = str(int(self.quantity() * 100.0))
-        if len(squant) <= 2:
-            return "0." + squant + " " + self.currency().code()
-        cents = squant[-2:]
-        dollars = squant[:-2]
+        str_quant = str(int(self.quantity() * 100.0))
+        if len(str_quant) <= 2:
+            return "0." + str_quant + " " + self.currency().code()
+        cents = str_quant[-2:]
+        dollars = str_quant[:-2]
         chars = dollars
         ret = "." + cents + " " + self.currency().code()
         for k in range(len(chars)):

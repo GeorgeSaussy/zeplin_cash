@@ -32,7 +32,7 @@ def test_computing_balance() -> None:
 
 
 def test_set_starting_balance() -> None:
-    """Tedt that we can set the starting balance of an account."""
+    """Test that we can set the starting balance of an account."""
     account = Account("My Account", True, "1234")
     some_time = datetime.now()
     money = Money(1000.00, usd())

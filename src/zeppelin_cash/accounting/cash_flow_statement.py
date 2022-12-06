@@ -8,7 +8,7 @@ from zeppelin_cash.accounting.money import Money
 
 
 class CashFlowStatement:
-    """A CashFlowStatement encapulates the CashFlowStatement
+    """A CashFlowStatement encapsulates the CashFlowStatement
     component of a financial statement.
     """
 
@@ -35,7 +35,7 @@ class CashFlowStatement:
 
         # Cash disbursements are the outflows of money used in operating
         # the business. This includes paying for inventory or paying
-        # salaries. These are also called "payments" or "disbusements".
+        # salaries. These are also called "payments" or "disbursements".
         # Payments accounted here decreases accounts payable on the balance
         # sheet.
         self.cash_disbursements = Money(0, self.currency)
@@ -59,7 +59,7 @@ class CashFlowStatement:
         """Get the cash from operations.
 
         Cash from operations is defined as the difference between cash
-        receipts and cash disbusements.
+        receipts and cash disbursements.
 
         Returns:
             The cash from operations.

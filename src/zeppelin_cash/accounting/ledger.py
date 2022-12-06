@@ -64,7 +64,7 @@ class Ledger:
 
     def balance_as_of_date(self, time: datetime,
                            account_id: str) -> Result[Money]:
-        """Get the balace as of a given date.
+        """Get the balance as of a given date.
 
         Args:
             time: the time at which to get the balance.

@@ -97,11 +97,11 @@ def test_transaction_publishing() -> None:
         err = journal.add_transaction(transaction)
         assert err.is_ok()
         assert journal.is_valid()
-    unpublished = journal.unpushed_transactions()
+    unpublished = journal.un_pushed_transactions()
     assert len(unpublished) == num_transactions
     err = journal.have_pushed(10)
     assert err.is_ok()
-    unpublished = journal.unpushed_transactions()
+    unpublished = journal.un_pushed_transactions()
     assert len(unpublished) == num_transactions - 10
     err = journal.have_pushed(num_transactions)
     assert not err.is_ok()

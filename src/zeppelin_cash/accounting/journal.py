@@ -44,11 +44,11 @@ class Journal:
                 return False
         return True
 
-    def unpushed_transactions(self) -> List[JournalTransaction]:
-        """Get a list of all unpushed transactions.
+    def un_pushed_transactions(self) -> List[JournalTransaction]:
+        """Get a list of all un-pushed transactions.
 
         Returns:
-            A list of all unpushed transactions.
+            A list of all un-pushed transactions.
         """
         return self.transactions[self._pushed_index:]
 
@@ -59,10 +59,10 @@ class Journal:
             num_pushed the number pushed
 
         Returns:
-            An error if the number pushed is greater than the number of unpushed transactions.
+            An error if the number pushed is greater than the number of un-pushed transactions.
         """
         if num_pushed > len(self.transactions) - self._pushed_index:
             return Error(
-                "the number pushed is greater than the number of unpushed transactions")
+                "the number pushed is greater than the number of un-pushed transactions")
         self._pushed_index += num_pushed
         return ok()

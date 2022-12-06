@@ -1,4 +1,4 @@
-"""The module wallet.accounting.financial_statement contians the
+"""The module wallet.accounting.financial_statement contains the
 FinancialStatement implementation."""
 from datetime import datetime
 
@@ -15,7 +15,7 @@ class FinancialStatement:
     def __init__(self, balance_sheet: BalanceSheet,
                  cash_flow_statement: CashFlowStatement,
                  income_statement: IncomeStatement) -> None:
-        """Create a new FiancialStatement instance.
+        """Create a new FinancialStatement instance.
 
         Args:
             balance_sheet: the statement's balance sheet
@@ -49,7 +49,7 @@ class FinancialStatement:
         )
 
     def is_valid(self) -> bool:
-        """Check that a fiancial statement is legal.
+        """Check that a financial statement is legal.
 
         Returns:
             True iff the statement adds up.
@@ -79,5 +79,5 @@ class FinancialStatement:
             balance_sheet, cash_flow_statement, income_statement)
 
     def __str__(self) -> str:
-        return '\n'.join([str(stmt) for stmt in \
-            [self.balance_sheet, self.cash_flow_statement, self.income_statement]])
+        return '\n'.join([str(stmt) for stmt in
+                          [self.balance_sheet, self.cash_flow_statement, self.income_statement]])
