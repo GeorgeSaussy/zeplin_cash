@@ -29,11 +29,11 @@ class IncomeStatement:
         # Until this point, a pending sale it called an "order". Say
         # WidgetTech gets an order for 100 widgets. That order becomes
         # a sale when the widgets are shipped. If the customer has not yet
-        # paid, then the sale is also recorded as accounts recievable on the
+        # paid, then the sale is also recorded as accounts receivable on the
         # balance sheet.
         self.net_sales = Money(0, self.currency)
 
-        # When a good is sold, the inventory value assocuiated with the
+        # When a good is sold, the inventory value associated with the
         # sale added here.
         self.cost_of_goods_sold = Money(0, self.currency)
         self.sales_and_marketing = Money(0, self.currency)

@@ -11,10 +11,10 @@ class BalanceSheet:
     """BalanceSheet is a class that encapsulates a balance sheet for a financial statement."""
 
     def __init__(self, time: datetime, currency: Currency = usd()) -> None:
-        """Create a new BlananceSheet instance
+        """Create a new BalanceSheet instance
 
         Args:
-            time: the timestap for the encapsulated balance sheet
+            time: the timestamp for the encapsulated balance sheet
             currency: the currency for the balance sheet
         """
         self.time = time
@@ -22,36 +22,36 @@ class BalanceSheet:
 
         # Assets
 
-        # This is cash availible in a bank account or physical cash that
+        # This is cash available in a bank account or physical cash that
         # the firm owns. Cash should be reported in the currency of the
-        # home country of the firm. If the firm has forign currency, say
+        # home country of the firm. If the firm has foreign currency, say
         # from over seas operations, then that value should
         # be converted to the local currency for reporting.
         self.cash = Money(0, self.currency)
 
-        # Accounts recievable is the sum of the value of good or services
-        # sold, but that have not been paid for. For example, say WidgitTech
-        # shiped a regular client 100 widgets but the customer has not yet
-        # paid, this would be considered accounts recievable.
+        # Accounts receivable is the sum of the value of good or services
+        # sold, but that have not been paid for. For example, say WidgetTech
+        # shipped a regular client 100 widgets but the customer has not yet
+        # paid, this would be considered accounts receivable.
         # This is different from cash from goods sold, because *it is not cash*.
-        # Accounts recievable also entails a legal right to collect a debt.
-        self.accounts_recievable = Money(0, self.currency)
+        # Accounts receivable also entails a legal right to collect a debt.
+        self.accounts_receivable = Money(0, self.currency)
 
         # Inventory is the value of both finished goods ready to be sold,
-        # and the row materials and itermediate products used to
+        # and the row materials and intermediate products used to
         # manufacture final goods.
         # TODO(gs): Figure out how to value inventory.
         self.inventory = Money(0, self.currency)
 
         # Prepaid expenses are the vaud of goods or service that the firm has
-        # paid for, bug which have not yet been relised. For example, say
+        # paid for, bug which have not yet been realized. For example, say
         # WidgetTech orders 1,000 widget parts and pays for them. For the time
         # between paying for the order and the parts arriving, the value of the
         # parts is accounted for as a prepaid expense.
         self.prepaid_expenses = Money(0, self.currency)
 
         # Other assets include all other assets not included in other
-        # categoies. This includes things like patents, source code,
+        # categories. This includes things like patents, source code,
         # copyrights, and brand value.
         self.other_assets = Money(0, self.currency)
 
@@ -114,14 +114,15 @@ class BalanceSheet:
         Returns:
             The value of current assets.
         """
-        return self.cash + self.accounts_recievable + \
+        return self.cash + self.accounts_receivable + \
             self.inventory + self.prepaid_expenses
 
     def net_fixed_assets(self) -> Money:
         """Get the value of net fixed assets.
 
         This is the value of fixed assets taking into account depreciation.
-        Since depreciation can only be a positive value accounting for TKTK
+        Since depreciation can only be a positive value the value is defined
+        as the value of assets at cost less depreciation.
 
         Returns:
             The value of net fixed assets.
@@ -139,7 +140,7 @@ class BalanceSheet:
     def current_liabilities(self) -> Money:
         """Get the value of current liabilities.
 
-        Liabilities are oblications of the firm. This includes shareholder equity,
+        Liabilities are obligations of the firm. This includes shareholder equity,
         although this liability is not expected to be repaid in the normal course
         of business. Current liabilities are liabilities that must be paid within
         one year of the date of the balance sheet. Current liabilities are the
@@ -194,7 +195,7 @@ class BalanceSheet:
         ret.time = self.time
         # Assets
         ret.cash = self.cash + sheet.cash
-        ret.accounts_recievable = self.accounts_recievable + sheet.accounts_recievable
+        ret.accounts_receivable = self.accounts_receivable + sheet.accounts_receivable
         ret.inventory = self.inventory + sheet.inventory
         ret.prepaid_expenses = self.prepaid_expenses + sheet.prepaid_expenses
 
@@ -259,7 +260,7 @@ Total liabilities & equity: {}`,
 """.format(
             str(self.time),
             str(self.cash),
-            str(self.accounts_recievable),
+            str(self.accounts_receivable),
             str(self.inventory),
             str(self.prepaid_expenses),
             str(self.current_assets()),

@@ -42,12 +42,12 @@ class Book:
             self.start_time, Money(0, self.accounting_currency))
         self.ledger.add_account(account)
         self._cash_account_ids = [default_cash_id()]
-        account = Account("Accounts Recievable", True,
-                          default_accounts_recievable_id())
+        account = Account("Accounts Receivable", True,
+                          default_accounts_receivable_id())
         account.set_starting_balance(
             self.start_time, Money(0, self.accounting_currency))
         self.ledger.add_account(account)
-        self._accounts_recievable_ids = [default_accounts_recievable_id()]
+        self._accounts_receivable_ids = [default_accounts_receivable_id()]
         account = Account("Inventory", True, default_inventory_id())
         account.set_starting_balance(
             self.start_time, Money(0, self.accounting_currency))
@@ -93,7 +93,7 @@ class Book:
             self.start_time, Money(0, self.accounting_currency))
         self.ledger.add_account(account)
         self._accrued_expenses_ids = [default_accrued_expenses_id()]
-        account = Account("Currenct Portion of Debt", False,
+        account = Account("Current Portion of Debt", False,
                           default_current_portion_of_debt_id())
         account.set_starting_balance(
             self.start_time, Money(0, self.accounting_currency))
@@ -160,7 +160,7 @@ class Book:
         Returns:
             None
         """
-        transactions = self.journal.unpushed_transactions()
+        transactions = self.journal.un_pushed_transactions()
         for transaction in transactions:
             for entry in transaction.entries():
                 account_entry = AccountEntry(
@@ -193,8 +193,8 @@ class Book:
         # assets
         sheet.cash, err = self._sum_balances(time, self._cash_account_ids)
         still_ok = still_ok and err.is_ok()
-        sheet.accounts_recievable, err = self._sum_balances(
-            time, self._accounts_recievable_ids)
+        sheet.accounts_receivable, err = self._sum_balances(
+            time, self._accounts_receivable_ids)
         still_ok = still_ok and err.is_ok()
         sheet.inventory, err = self._sum_balances(time, self._inventory_ids)
         still_ok = still_ok and err.is_ok()
@@ -411,7 +411,7 @@ class Book:
     def _cash_receipts(self, start: datetime, end: datetime) -> Money:
         """Calculate the cash receipts for a period.
 
-        Cash reciepts are anything that increases cash that is not
+        Cash receipts are anything that increases cash that is not
         from capital stock or borrowing. Usually this is from sales.
 
         Args:
@@ -422,7 +422,7 @@ class Book:
             The cash receipts in the period.
         """
         ret = Money(0.0, self.accounting_currency)
-        negs = self._capital_stock_ids + \
+        negative_sum = self._capital_stock_ids + \
             self._long_term_debt_ids + \
             self._current_portion_of_debt_ids + \
             self._income_taxes_payable_ids + \
@@ -435,7 +435,7 @@ class Book:
             for entry in transaction.entries():
                 if entry.account_id() in self._cash_account_ids:
                     cash_diff += entry.amount().scale(1.0 if entry.is_debit() else -1.0)
-                elif entry.account_id() in negs:
+                elif entry.account_id() in negative_sum:
                     factor = 1.0 if entry.is_debit() else -1.0
                     capital_and_borrowing_diff += entry.amount().scale(factor)
             diff = cash_diff + capital_and_borrowing_diff
@@ -457,7 +457,7 @@ class Book:
             The cash receipts in the period.
         """
         ret = Money(0.0, self.accounting_currency)
-        negs = self._capital_stock_ids + \
+        negative_sum = self._capital_stock_ids + \
             self._long_term_debt_ids + \
             self._current_portion_of_debt_ids + \
             self._income_taxes_payable_ids + \
@@ -470,7 +470,7 @@ class Book:
             for entry in transaction.entries():
                 if entry.account_id() in self._cash_account_ids:
                     cash_diff += entry.amount().scale(1.0 if entry.is_debit() else -1.0)
-                elif entry.account_id() in negs:
+                elif entry.account_id() in negative_sum:
                     capital_and_borrowing_diff += entry.amount().scale(
                         1.0 if entry.is_debit() else -1.0)
             diff = cash_diff + capital_and_borrowing_diff
@@ -499,7 +499,7 @@ class Book:
     def list_accounts(self, timestamp: datetime) -> List[AccountMetadata]:
         """List all of the accounts on the ledger.
 
-        This will push all journalled transactions to the accounts
+        This will push all journaled transactions to the accounts
         in order to calculate updated balances.
 
         Args:
@@ -554,13 +554,13 @@ def default_cash_id() -> str:
     return "cash"
 
 
-def default_accounts_recievable_id() -> str:
-    """Get the id of the accounts recievable account.
+def default_accounts_receivable_id() -> str:
+    """Get the id of the accounts receivable account.
 
     Returns:
-        "accounts-recievable"
+        "accounts-receivable"
     """
-    return "accounts-recievable"
+    return "accounts-receivable"
 
 
 def default_inventory_id() -> str:
@@ -618,7 +618,7 @@ def default_accounts_payable_id() -> str:
 
 
 def default_accrued_expenses_id() -> str:
-    """Get the id of the accrued expnses account.
+    """Get the id of the accrued expenses account.
 
     Returns:
         "accrued-expenses"

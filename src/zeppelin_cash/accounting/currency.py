@@ -38,7 +38,7 @@ class Currency:
         """Get the name of the currency.
 
         Returns:
-            The name of the currencu, e.g. "US dollar".
+            The name of the currency, e.g. "US dollar".
         """
         return self.__name
 

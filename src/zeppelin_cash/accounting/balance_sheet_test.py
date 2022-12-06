@@ -17,7 +17,7 @@ def test_current_assets() -> None:
     """Test that current assets can be calculated."""
     sheet = BalanceSheet(datetime.now())
     sheet.cash = Money(100, usd())
-    sheet.accounts_recievable = Money(15, usd())
+    sheet.accounts_receivable = Money(15, usd())
     sheet.inventory = Money(10, usd())
     sheet.prepaid_expenses = Money(11, usd())
     assert sheet.current_assets().quantity() == 136
@@ -36,7 +36,7 @@ def test_total_assets() -> None:
     sheet = BalanceSheet(datetime.now())
     # current assets
     sheet.cash = Money(100, usd())
-    sheet.accounts_recievable = Money(15, usd())
+    sheet.accounts_receivable = Money(15, usd())
     sheet.inventory = Money(10, usd())
     sheet.prepaid_expenses = Money(11, usd())
     # net fixed assets
@@ -86,7 +86,7 @@ def test_capital_employed() -> None:
     sheet = BalanceSheet(datetime.now())
     # current assets
     sheet.cash = Money(100, usd())
-    sheet.accounts_recievable = Money(15, usd())
+    sheet.accounts_receivable = Money(15, usd())
     sheet.inventory = Money(10, usd())
     sheet.prepaid_expenses = Money(11, usd())
     # current liabilities
